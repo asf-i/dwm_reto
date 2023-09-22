@@ -190,6 +190,8 @@ drw_clr_create(Drw *drw, Clr *dest, const char *clrname)
 	                       DefaultColormap(drw->dpy, drw->screen),
 	                       clrname, dest))
 		die("error, cannot allocate color '%s'", clrname);
+
+	dest->pixel |= 0xff << 24; // Diese Line habe ich als fix für transparente Borders hinzugefügt
 }
 
 /* Wrapper to create color schemes. The caller has to call free(3) on the
