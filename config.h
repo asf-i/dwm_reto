@@ -15,9 +15,9 @@ static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#2e2e2e";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, "#555555" },
-	[SchemeSel]  = { col_gray4, col_cyan,  "#999999"  },
-};
+	[SchemeNorm] = { col_gray3, col_gray1, "#7e6591" },
+	[SchemeSel]  = { col_gray4, col_cyan,  "#9530df"  },
+}; // Farben waren #555555 und #999999
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "" };
@@ -95,13 +95,19 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	{ MODKEY,			XK_s, 	   spawn,	   SHCMD("maim ~/Pictures/Screenshots/$(date +%d.%m.%y_%T).png") },
-	{ MODKEY|ShiftMask,		XK_s,	   spawn,	   SHCMD("maim -s ~/Pictures/Screenshots/$(date +%d.%m.%y_%T).png") },
+	{ MODKEY,			XK_s,	   spawn,	   SHCMD("maim -s --format png /dev/stdout | xclip -selection clipboard -t image/png -i") },
+	{ MODKEY|ShiftMask,		XK_s, 	   spawn,	   SHCMD("maim -s ~/Pictures/Screenshots/$(date +%d.%m.%y_%T).png") },
+	{ MODKEY|ControlMask,		XK_s,	   spawn,	   SHCMD("maim -s --format png /dev/stdout | feh -") },
+	{ MODKEY,			XK_x, 	   spawn,	   SHCMD("maim --format png /dev/stdout | xclip -selection clipboard -t image/png -i") },
+	{ MODKEY|ShiftMask,		XK_x,	   spawn,	   SHCMD("maim ~/Pictures/Screenshots/$(date +%d.%m.%y_%T).png") },
+	{ MODKEY|ControlMask,		XK_x,	   spawn,	   SHCMD("maim --format png /dev/stdout | feh -") },
 	{ MODKEY,			XK_Up,	   spawn,	   SHCMD("amixer sset Master 5%+") },
 	{ MODKEY,			XK_Down,   spawn,	   SHCMD("amixer sset Master 5%-") },
 	{ MODKEY|ShiftMask,		XK_Up,     spawn,	   SHCMD("pulsemixer --unmute") },
 	{ MODKEY|ShiftMask,		XK_Down,   spawn,	   SHCMD("pulsemixer --mute") },
 	{ MODKEY,			XK_a,	   spawn,	   SHCMD("mpv av://v4l2:/dev/video0 -- profile=low-latency --untimed") },
+	{ MODKEY,			XK_F2,	   spawn,	   SHCMD("setxkbmap ru") },
+	{ MODKEY,			XK_F1,	   spawn,	   SHCMD("setxkbmap ch") },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
